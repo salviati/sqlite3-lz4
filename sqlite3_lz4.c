@@ -92,7 +92,7 @@ static void _lz4uncompress(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 
 	char *out = sqlite3_malloc(out_len);
 	int nread = LZ4_uncompress(4 + in, out, out_len);
-	if (nread != in_len-4) {
+	if (nread < 0 || nread != in_len-4) {
 		// error
 		sqlite3_free(out);
 		return;
