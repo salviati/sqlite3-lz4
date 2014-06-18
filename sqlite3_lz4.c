@@ -5,12 +5,12 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -37,6 +37,12 @@ static void _lz4compress(sqlite3_context *ctx, int argc, sqlite3_value **argv) {
 		// error.
 		return;
 	}
+
+        if (SQLITE_NULL == sqlite3_value_type(argv[0])) {
+                sqlite3_result_null(ctx);
+                return;
+        }
+
 	int in_len = sqlite3_value_bytes(argv[0]);
 	const char *in = sqlite3_value_blob(argv[0]);
 
@@ -59,6 +65,13 @@ static void _lz4compresshc(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 		// error.
 		return;
 	}
+
+        if (SQLITE_NULL == sqlite3_value_type(argv[0])) {
+                sqlite3_result_null(ctx);
+                return;
+        }
+
+
 	int in_len = sqlite3_value_bytes(argv[0]);
 	const char *in = sqlite3_value_blob(argv[0]);
 
@@ -80,6 +93,11 @@ static void _lz4uncompress(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 		// error.
 		return;
 	}
+
+        if (SQLITE_NULL == sqlite3_value_type(argv[0])) {
+                sqlite3_result_null(ctx);
+                return;
+        }
 
 	int in_len = sqlite3_value_bytes(argv[0]);
 	if (in_len <= 4) {
